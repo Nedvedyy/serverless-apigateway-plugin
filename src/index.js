@@ -7,6 +7,7 @@
  * */
 
 import AWS from 'aws-sdk';
+import BbPromise from 'bluebird';
 
 /**
  * @classdesc Allow you to configure the API gateway
@@ -20,21 +21,13 @@ class APIGatewayCustomiser {
      * @param {!Object} serverless - Serverless object
      * @param {!Object} options - Serverless options
      *
-     * apigateway
-     *   responses
-     *     -  response
-     *         type:
-     *         headers:
-     *         bodyMappingTemplate:
-     *   binaryTypes:
-     *     - 'image/jpg'
-     *     - 'text/html'
      * */
     constructor (serverless, options) {
+        this.serverless.cli.log(serverless);
+        this.serverless.cli.log(options);
         /** Serverless variables */
         this.serverless = serverless;
         this.options = options;
-        this.custom = this.serverless.service.custom;
         this.provider = this.serverless.getProvider('aws');
         this.apiGatewayConfig = {
             responses: [],
@@ -65,17 +58,7 @@ class APIGatewayCustomiser {
      * @return {}
      * */
     configPlugin () {
-        /** Default options */
-        this.apiGatewayConfig = (this.custom.apiGatewayConfig.responses.apiGatewayConfig)? this.custom.apiGatewayConfig.responses:'';
-
-        /** responses */
-        if (this.custom.apiGatewayConfig.responses) {
-            console.log(this.custom.apiGatewayConfig.responses);
-        }
-        /** binary support */
-        if (this.custom.apiGatewayConfig.binaryTypes) {
-            console.log(this.custom.apiGatewayConfig.binaryTypes);
-        }
+        this.serverless.cli.log('API Gateway Configuring init:');
     }
 
     /**
@@ -84,12 +67,41 @@ class APIGatewayCustomiser {
      * @fulfil {} — Functions warmed up sucessfuly
      * @reject {Error} Functions couldn't be warmed up
      *
+     *
+     * apigateway
+     *   responses
+     *     -  response
+     *         type:
+     *         headers:
+     *         bodyMappingTemplate:
+     *   binaryTypes:
+     *     - 'image/jpg'
+     *     - 'text/html'
+     *
      * @return {Promise}
      * */
     modifyAPIGateway () {
         this.serverless.cli.log('API Gateway Configuring Starts:');
+
+        /** Filter functions for those need API Gateway Config */
+        return BbPromise.filter(this.serverless.service.getAllFunctions(), (functionObject) => {
+            this.serverless.cli.log('functionObject.apigateway');
+            this.serverless.cli.log(functionObject.apigateway);
+            if (functionObject.apigateway) {
+                if(functionObject.apigateway.responses) {
+                    this.serverless.cli.log('functionObject.apigateway.responses');
+                    this.serverless.cli.log(functionObject.apigateway.responses);
+                }
+                if(functionObject.apigateway.binaryTypes) {
+                    this.serverless.cli.log('functionObject.apigateway.binaryTypes');
+                    this.serverless.cli.log(functionObject.apigateway.binaryTypes);
+                }
+
+            }
+            return true;
+        })
     }
 }
 
 /** Export APIGatewayCustomiser class */
-module.exports = APIGatewayCustomiser
+module.exports = APIGatewayCustomiser;

@@ -20,7 +20,8 @@
     "url": "https://github.com/Nedvedyy/serverless-apigateway-plugin/issues"
   },
   "dependencies": {
-    "aws-sdk": "^2.72.0"
+    "aws-sdk": "^2.72.0",
+    "bluebird": "^3.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
