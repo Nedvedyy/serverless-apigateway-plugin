@@ -1,0 +1,1 @@
+# serverless-APIGateway-plugin

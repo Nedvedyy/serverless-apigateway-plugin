@@ -1,0 +1,32 @@
+{
+  "name": "serverless-apigateway-plugin",
+  "version": "1.0.0",
+  "description": "this is the serverless plugin to customize the aws api gateway",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nedvedyy/serverless-apigateway-plugin.git"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "serverless",
+    "gateway"
+  ],
+  "author": "nedved",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nedvedyy/serverless-apigateway-plugin/issues"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.72.0",
+    "bluebird": "^3.5.0"
+  },
+  "homepage": "https://github.com/Nedvedyy/serverless-apigateway-plugin#readme",
+  "scripts": {
+    "lint": "jshint .",
+    "validate": "npm ls"
+  }
+}
