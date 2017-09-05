@@ -13,10 +13,10 @@
   ],
   "keywords": [
     "serverless",
-    "gateway"
+    "aws gateway"
   ],
   "author": "nedved",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Nedvedyy/serverless-apigateway-plugin/issues"
   },
