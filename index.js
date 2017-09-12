@@ -81,7 +81,8 @@ class APIGatewayCustomiser {
     return new Promise((resolve, reject) => {
       this.apiGatewaySDK.createDeployment({
         restApiId: apiId,
-        stageName: this.stage
+        stageName: this.stage,
+        description: 'This deployment created by serverless-apigateway-plugin'
       }, (error, data) => {
         if (error) {
           if (error.code === 'TooManyRequestsException') {
