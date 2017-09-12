@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nedvedyy/serverless-apigateway-plugin.git"
+    "url": "git+https://github.com/GFG/serverless-apigateway-plugin.git"
   },
   "files": [
     "lib",
@@ -15,18 +15,33 @@
     "serverless",
     "aws gateway"
   ],
-  "author": "nedved",
+  "author": "GFG",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Nedvedyy/serverless-apigateway-plugin/issues"
+    "url": "https://github.com/GFG/serverless-apigateway-plugin/issues"
   },
   "dependencies": {
     "aws-sdk": "^2.72.0",
     "bluebird": "^3.5.0"
   },
-  "homepage": "https://github.com/Nedvedyy/serverless-apigateway-plugin#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "gfg-cicd-scripts": "git+ssh://git@github.com/GFG/gfg-cicd-scripts.git#v1.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "istanbul": "1.1.0-alpha.1",
+    "mocha": "^3.4.0",
+    "pre-commit": "^1.2.2",
+    "sinon": "^2.3.8"
+  },
+  "homepage": "https://github.com/GFG/serverless-apigateway-plugin#readme",
   "scripts": {
-    "lint": "jshint .",
+    "release": "sh ops/release.sh",
+    "eslint": "node_modules/.bin/eslint ./**/*.js",
     "validate": "npm ls"
-  }
+  },
+  "pre-commit": [
+    "eslint"
+  ]
 }
