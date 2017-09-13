@@ -13,7 +13,7 @@ Currently it is used in GFG(Global Fashion Group) internal projects.
 Install the plugin from npm
 
 ```bash
-$ npm install --save serverless-apigateway-plugin
+$ npm install --save serverless-apigw-plugin
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ Add the plugin to your `serverless.yml`
 # serverless.yml
 
 plugins:
-  - serverless-apigateway-plugin
+  - serverless-apigw-plugin
 ```
 
 Add the config to your custom tag of serverless.yml,
