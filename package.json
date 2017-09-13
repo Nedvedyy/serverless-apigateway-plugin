@@ -1,6 +1,6 @@
 {
   "name": "serverless-apigw-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "this is the serverless plugin to customize the aws api gateway",
   "main": "index.js",
   "repository": {
