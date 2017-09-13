@@ -1,3 +1,7 @@
+# Retired!!!
+# Please use https://github.com/GFG/serverless-apigateway-plugin OR https://www.npmjs.com/package/serverless-apigw-plugin Instead
+
+
 # serverless-APIGateway-plugin
 
 [Serverless framework](https://www.serverless.com) plugin to configure the AWS api gateway
