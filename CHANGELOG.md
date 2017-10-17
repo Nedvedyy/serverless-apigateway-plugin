@@ -1,6 +1,9 @@
 ## Change Log
 
-### upcoming (2017/09/13 04:15 +00:00)
+### upcoming (2017/10/17 02:06 +00:00)
+- [#6](https://github.com/GFG/serverless-apigateway-plugin/pull/6) fix: Change project name (@luannm)
+
+### v0.0.5 (2017/09/13 04:15 +00:00)
 - [#4](https://github.com/GFG/serverless-apigateway-plugin/pull/4) update: Change plugin name (@luannm)
 
 ### v0.0.4 (2017/09/12 09:36 +00:00)
