@@ -1,6 +1,9 @@
 ## Change Log
 
-### upcoming (2017/10/17 02:06 +00:00)
+### upcoming (2017/12/12 03:09 +00:00)
+- [#8](https://github.com/GFG/serverless-apigateway-plugin/pull/8) test: add unit test (@chantalneo)
+
+### v0.0.6 (2017/10/17 02:06 +00:00)
 - [#6](https://github.com/GFG/serverless-apigateway-plugin/pull/6) fix: Change project name (@luannm)
 
 ### v0.0.5 (2017/09/13 04:15 +00:00)
