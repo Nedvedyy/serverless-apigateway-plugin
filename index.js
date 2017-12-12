@@ -5,8 +5,9 @@ const AWS = require('aws-sdk');
 
 class APIGatewayCustomiser {
   constructor(serverless, options) {
+    this.createDeploymentRetryDelay = options.createDeploymentRetryDelay || 5 * 1000;
     this.serverless = serverless;
-    this.options = options;
+    // this.options = options;
     this.custom = this.serverless.service.custom;
     this.hooks = {
       'after:deploy:deploy': this.afterDeployFunctions.bind(this)
@@ -34,7 +35,7 @@ class APIGatewayCustomiser {
     this.serverless.cli.log('API Gateway Configuring: Start');
     /** Filter functions for those need API Gateway Config */
     if (this.custom.apigateway) {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         this.apiGatewaySDK.getRestApis({ limit: 500 }, (err, data) => {
           if (err) {
             reject(err);
@@ -45,29 +46,31 @@ class APIGatewayCustomiser {
           }
         });
       })
-      .then((apiId) => {
-        const promises = [];
-        if (this.custom.apigateway.responses) {
-          this.custom.apigateway.responses.forEach((response) => {
-            if (response.response.headers) {
-              promises.push(this.configHeaders(apiId, response.response));
-            }
-            if (response.response.bodyMappingTemplate) {
-              promises.push(this.configBodyMapping(apiId, response.response));
-            }
-          });
-        }
-        if (this.custom.apigateway.binaryTypes) {
-          promises.push(this.configBinary(apiId));
-        }
-        promises.push(apiId);
-        return Promise.all(promises);
-      })
-      .then(promiseData => this.createDeployment(promiseData.pop()))
-      .then(() => this.serverless.cli.log('API Gateway Configuring: End'))
-      .catch((err) => {
-        throw err;
-      });
+        .then((apiId) => {
+          const promises = [];
+          if (this.custom.apigateway.responses) {
+            this.custom.apigateway.responses.forEach((response) => {
+              if (response.response.headers) {
+                promises.push(this.configHeaders(apiId, response.response));
+              }
+              if (response.response.bodyMappingTemplate) {
+                promises.push(this.configBodyMapping(apiId, response.response));
+              }
+            });
+          }
+          if (this.custom.apigateway.binaryTypes) {
+            promises.push(this.configBinary(apiId));
+          }
+          promises.push(apiId);
+          return Promise.all(promises);
+        })
+        .then((promiseData) => {
+          this.createDeployment(promiseData.pop());
+        })
+        .then(() => this.serverless.cli.log('API Gateway Configuring: End'))
+        .catch((err) => {
+          throw err;
+        });
     }
   }
 
@@ -89,13 +92,13 @@ class APIGatewayCustomiser {
             this.serverless.cli.log('Deployment failed! Retry in 5s');
             setTimeout(() => {
               this.createDeployment(apiId);
-            }, 5 * 1000);
+            }, this.createDeploymentRetryDelay);
           } else {
             reject(error);
           }
         } else {
           this.serverless.cli.log('Create deployment finished');
-          resolve();
+          resolve('Success');
         }
       });
     });
@@ -122,7 +125,7 @@ class APIGatewayCustomiser {
           reject(err);
         } else {
           this.serverless.cli.log('API Gateway Configuring: Headers are set correctly');
-          resolve('Header set successfully:', response.type);
+          resolve(`Header set successfully: ${response.type.toString()}`);
         }
       });
     });
@@ -154,7 +157,7 @@ class APIGatewayCustomiser {
           reject(err);
         } else {
           this.serverless.cli.log('API Gateway Configuring: Body mapping templates are set correctly');
-          resolve('Body Mapping Templates set successfully:', response.type);
+          resolve(`Body Mapping Templates set successfully: ${response.type.toString()}`);
         }
       });
     });

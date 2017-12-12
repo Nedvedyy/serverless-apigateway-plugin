@@ -33,13 +33,17 @@
     "istanbul": "1.1.0-alpha.1",
     "mocha": "^3.4.0",
     "pre-commit": "^1.2.2",
-    "sinon": "^2.3.8"
+    "sinon": "^2.3.8",
+    "babel-core": "^6.24.0",
+    "babel-preset-latest": "^6.24.0"
   },
   "homepage": "https://github.com/GFG/serverless-apigateway-plugin#readme",
   "scripts": {
     "release": "sh ops/release.sh",
     "eslint": "node_modules/.bin/eslint ./**/*.js",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "test": "node_modules/.bin/mocha --compilers js:babel-core/register *.test.js",
+    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --compilers js:babel-core/register --colors --recursive *.test.js"
   },
   "pre-commit": [
     "eslint"
