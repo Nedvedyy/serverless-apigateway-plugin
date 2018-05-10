@@ -9,4 +9,4 @@ npm-debug.log
 .serverless
 coverage/
 .idea/
-
+.editorconfig
